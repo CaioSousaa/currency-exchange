@@ -1,9 +1,13 @@
-import { Global } from "./styles/global";
+import { AppRoutes } from "./routes.tsx";
+import { Global } from "./styles/global.ts";
 
-export default function App() {
+function App() {
   return (
     <>
+      <AppRoutes />
       <Global />
     </>
   );
 }
+
+export default App;
