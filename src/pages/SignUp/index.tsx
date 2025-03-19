@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BiError } from "react-icons/bi";
 import { db } from "../../services/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 
 const createUserFormSchema = z.object({
   email: z
@@ -22,7 +22,7 @@ const createUserFormSchema = z.object({
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
-export function Home() {
+export function SignUp() {
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
 
@@ -34,26 +34,23 @@ export function Home() {
     resolver: zodResolver(createUserFormSchema),
   });
 
-  async function loginUser(data: CreateUserFormData) {
+  async function createUser(data: CreateUserFormData) {
     setOutput(JSON.stringify(data, null, 2));
 
     try {
       const users = collection(db, "users");
-      const q = query(
-        users,
-        where("email", "==", data.email),
-        where("password", "==", data.password)
-      );
-
+      const q = query(users, where("email", "==", data.email));
       const querySnapshot = await getDocs(q);
 
-      if (querySnapshot.empty) {
-        setError("email ou senha inválido");
-        return false;
+      if (!querySnapshot.empty) {
+        setError("email ja registrado");
+        return true;
       }
 
-      document.cookie = `${new Date(Date.now())}${data.email}`;
-      console.log(document.cookie);
+      await addDoc(collection(db, "users"), {
+        email: data.email,
+        password: data.password,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +58,7 @@ export function Home() {
 
   return (
     <Main>
-      <Box onSubmit={handleSubmit(loginUser)}>
+      <Box onSubmit={handleSubmit(createUser)}>
         <span>E-mail</span>
         <label>
           <input
@@ -99,8 +96,7 @@ export function Home() {
             <p>{errors.password.message}</p>
           </div>
         )}
-        <a href="/signup">Ainda não possui uma conta? Inscreva-se</a>
-        <button type="submit">Entrar</button>
+        <button type="submit">Criar</button>
       </Box>
     </Main>
   );

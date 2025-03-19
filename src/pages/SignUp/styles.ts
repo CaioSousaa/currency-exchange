@@ -74,15 +74,4 @@ export const Box = styled.form`
     font-size: larger;
     cursor: pointer;
   }
-
-  a {
-    padding-top: 0.5rem;
-    font-size: small;
-    color: #f3f3f3;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
 `;
