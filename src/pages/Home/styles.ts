@@ -6,7 +6,8 @@ export const Main = styled.div`
   justify-content: center;
   align-items: center;
 `;
-export const Box = styled.div`
+
+export const Box = styled.form`
   width: 27rem;
   height: 25rem;
   background: #1a202c;
@@ -20,6 +21,19 @@ export const Box = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  div {
+    display: flex;
+    gap: 4px;
+
+    p {
+      color: #ff5d82;
+    }
+
+    svg {
+      color: #ff5d82;
+    }
+  }
 
   span {
     color: #f3f3f3;
@@ -41,7 +55,7 @@ export const Box = styled.div`
       background: transparent;
       border: 0;
       height: 30px;
-      width: 220px;
+      width: 300px;
       font-size: larger;
     }
 
