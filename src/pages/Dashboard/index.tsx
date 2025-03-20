@@ -1,6 +1,20 @@
 import { NavBar } from "../../components/Navbar";
+import { Select } from "../../components/Select";
 import { Sidebar } from "../../components/Sidebar";
-import { Content, ContentScreen, Main } from "./styles";
+import { HiArrowsRightLeft } from "react-icons/hi2";
+
+import {
+  Card,
+  Content,
+  ContentScreen,
+  Main,
+  MoneyBox,
+  ContentCard,
+  Section,
+  ArrowsRightLeft,
+} from "./styles";
+import { IconsItem } from "./IconsItem";
+import { motion } from "framer-motion";
 
 export function Dashboard() {
   return (
@@ -8,7 +22,33 @@ export function Dashboard() {
       <NavBar />
       <ContentScreen>
         <Sidebar />
-        <Content>Content</Content>
+        <Content>
+          <h1>Conversor de Moedas</h1>
+          <Section>
+            <Card>
+              <ContentCard>
+                <div>
+                  <Select />
+                  <MoneyBox>1.0000</MoneyBox>
+                </div>
+                <div>
+                  <ArrowsRightLeft
+                    as={motion.div}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.8 }}
+                  >
+                    <HiArrowsRightLeft />
+                  </ArrowsRightLeft>
+                </div>
+                <div>
+                  <MoneyBox>1.0000</MoneyBox>
+                  <Select />
+                </div>
+              </ContentCard>
+            </Card>
+            <IconsItem />
+          </Section>
+        </Content>
       </ContentScreen>
     </Main>
   );
