@@ -8,15 +8,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { BiError } from "react-icons/bi";
 import { db } from "../../services/firebase";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { FaRegAddressBook } from "react-icons/fa";
 
 const createUserFormSchema = z.object({
-  email: z
+  name: z
     .string()
-    .nonempty("o campo precisa ser preenchido")
-    .email("email invalido"),
+    .nonempty("o nome é obrigatorio")
+    .min(2, "seu nome deve ter no minimo 2 caracteres"),
+  email: z.string().nonempty("o email é obrigatorio").email("email invalido"),
   password: z
     .string()
-    .nonempty("o campo precisa ser preenchido")
+    .nonempty("a senha é obrigatoria")
     .min(8, "sua senha deve ter no minimo 8 caracteres"),
 });
 
@@ -35,7 +37,7 @@ export function SignUp() {
   });
 
   async function createUser(data: CreateUserFormData) {
-    setOutput(JSON.stringify(data, null, 2));
+    setOutput(JSON.stringify(data, null, 3));
 
     try {
       const users = collection(db, "users");
@@ -50,6 +52,7 @@ export function SignUp() {
       await addDoc(collection(db, "users"), {
         email: data.email,
         password: data.password,
+        name: data.name,
       });
     } catch (err) {
       console.log(err);
@@ -59,6 +62,22 @@ export function SignUp() {
   return (
     <Main>
       <Box onSubmit={handleSubmit(createUser)}>
+        <span>Nome</span>
+        <label>
+          <input
+            type="text"
+            placeholder="Seu nome aqui"
+            {...register("name")}
+          />
+          <FaRegAddressBook />
+        </label>
+        {errors.name && (
+          <div>
+            <BiError />
+            <p>{errors.name.message}</p>
+          </div>
+        )}
+
         <span>E-mail</span>
         <label>
           <input
@@ -68,17 +87,17 @@ export function SignUp() {
           />
           <MdAlternateEmail />
         </label>
-        {error && (
-          <div>
-            <BiError />
-            <p>{error}</p>
-          </div>
-        )}
-
         {errors.email && (
           <div>
             <BiError />
             <p>{errors.email.message}</p>
+          </div>
+        )}
+
+        {error && !errors.email && (
+          <div>
+            <BiError />
+            <p>{error}</p>
           </div>
         )}
         <span>Senha</span>

@@ -9,7 +9,7 @@ export const Main = styled.div`
 
 export const Box = styled.form`
   width: 27rem;
-  height: 25rem;
+  height: 33rem;
   background: #1a202c;
   margin-top: 16rem;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
