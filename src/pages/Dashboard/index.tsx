@@ -15,8 +15,11 @@ import {
 } from "./styles";
 import { IconsItem } from "./IconsItem";
 import { motion } from "framer-motion";
+import { useDash } from "../../hooks/useDash";
 
 export function Dashboard() {
+  const { section } = useDash();
+
   return (
     <Main>
       <NavBar />
@@ -24,30 +27,32 @@ export function Dashboard() {
         <Sidebar />
         <Content>
           <h1>Conversor de Moedas</h1>
-          <Section>
-            <Card>
-              <ContentCard>
-                <div>
-                  <Select />
-                  <MoneyBox>1.0000</MoneyBox>
-                </div>
-                <div>
-                  <ArrowsRightLeft
-                    as={motion.div}
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.8 }}
-                  >
-                    <HiArrowsRightLeft />
-                  </ArrowsRightLeft>
-                </div>
-                <div>
-                  <MoneyBox>1.0000</MoneyBox>
-                  <Select />
-                </div>
-              </ContentCard>
-            </Card>
-            <IconsItem />
-          </Section>
+          {section.map((item) => (
+            <Section key={item.id}>
+              <Card>
+                <ContentCard>
+                  <div>
+                    <Select />
+                    <MoneyBox>1.0000</MoneyBox>
+                  </div>
+                  <div>
+                    <ArrowsRightLeft
+                      as={motion.div}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.8 }}
+                    >
+                      <HiArrowsRightLeft />
+                    </ArrowsRightLeft>
+                  </div>
+                  <div>
+                    <MoneyBox>1.0000</MoneyBox>
+                    <Select />
+                  </div>
+                </ContentCard>
+              </Card>
+              <IconsItem id={item.id} />
+            </Section>
+          ))}
         </Content>
       </ContentScreen>
     </Main>
