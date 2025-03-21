@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const Main = styled.div`
   width: 350px;
@@ -44,18 +45,17 @@ export const Section = styled.section`
     }
 
     transition: color 0.2s;
-    transition: scale 0.2s;
 
     &:hover {
       a {
         color: #d4d4d5;
-        scale: 1.02;
       }
 
       svg {
         color: #ff7a97;
-        scale: 1.02;
       }
     }
   }
 `;
+
+export const DivAnimation = styled(motion.div)``;
