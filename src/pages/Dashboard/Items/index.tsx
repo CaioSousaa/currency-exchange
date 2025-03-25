@@ -7,9 +7,9 @@ import {
   AddAnimation,
   TippyStylized,
   TrashAnimationInative,
-} from "./styles";
+} from "../styles";
 import { motion } from "framer-motion";
-import { useDash } from "../../hooks/useDash";
+import { useDash } from "../../../hooks/useDash";
 import { useState } from "react";
 
 interface SectionProps {
@@ -34,7 +34,9 @@ export function IconsItem({ id, initialFav = false }: SectionProps) {
   return (
     <Icons>
       <TippyStylized
-        content="Excluir conversão"
+        {...(section.length === 1
+          ? { content: "Impossivel excluir" }
+          : { content: "Excluir conversão" })}
         theme="custom"
         animation="fade"
         placement="bottom"
