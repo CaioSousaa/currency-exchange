@@ -1,5 +1,6 @@
-import { Main, Section, Title } from "./styles";
+import { DivAnimation, Main, Section, Title } from "./styles";
 import { FaRegBookmark } from "react-icons/fa";
+import { motion } from "framer-motion";
 import { LuLayoutDashboard } from "react-icons/lu";
 
 export function Sidebar() {
@@ -10,14 +11,22 @@ export function Sidebar() {
           <span>GERAL</span>
         </Title>
 
-        <div>
+        <DivAnimation
+          as={motion.div}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+        >
           <FaRegBookmark />
           <a href="">Salvos</a>
-        </div>
-        <div>
+        </DivAnimation>
+        <DivAnimation
+          as={motion.div}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.9 }}
+        >
           <LuLayoutDashboard />
           <a href="">Dashboard</a>
-        </div>
+        </DivAnimation>
       </Section>
     </Main>
   );

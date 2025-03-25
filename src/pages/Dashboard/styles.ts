@@ -9,6 +9,10 @@ export const ContentScreen = styled.div`
 
 export const Section = styled.div`
   display: flex;
+
+  & + & {
+    padding-top: 1rem;
+  }
 `;
 
 export const Content = styled.div`
@@ -94,6 +98,10 @@ export const TrashAnimation = styled(motion.div)`
   &:hover {
     color: #ffa1b5;
   }
+`;
+
+export const TrashAnimationInative = styled(motion.div)`
+  color: #616273;
 `;
 
 export const SaveAnimation = styled(motion.div)`
