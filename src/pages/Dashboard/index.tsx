@@ -1,23 +1,72 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { HiArrowsRightLeft } from "react-icons/hi2";
 import { NavBar } from "../../components/Navbar";
 import { SelectCoins } from "../../components/Select";
 import { Sidebar } from "../../components/Sidebar";
-import { HiArrowsRightLeft } from "react-icons/hi2";
-
+import { useDash } from "../../hooks/useDash";
+import { IconsItem } from "./Items/index";
 import {
+  ArrowsRightLeft,
   Card,
   Content,
+  ContentCard,
   ContentScreen,
   Main,
   MoneyBox,
-  ContentCard,
   Section,
-  ArrowsRightLeft,
 } from "./styles";
-import { IconsItem } from "./Items/index";
-import { useDash } from "../../hooks/useDash";
+
+interface ExchangeRate {
+  ask: string;
+  bid: string;
+  code: string;
+  codein: string;
+  create_date: string;
+  high: string;
+  low: string;
+  name: string;
+  pctChange: string;
+  timestamp: string;
+  varBid: string;
+}
 
 export function Dashboard() {
   const { section } = useDash();
+  const [itemSelectLeft, setItemSelectLeft] = useState("");
+  const [itemSelectRight, setItemSelectRight] = useState("");
+  const [ratesLeft, setRatesLeft] = useState<ExchangeRate | null>(null);
+  const [ratesRight, setRatesRight] = useState<ExchangeRate | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseRatesLeftLabel = await axios.get(
+          `https://economia.awesomeapi.com.br/json/last/${itemSelectLeft}-${itemSelectRight}?token=${
+            import.meta.env.VITE_SECRET_AWESOME_KEY_API
+          }`
+        );
+
+        const keyLeftLabel = `${itemSelectLeft}${itemSelectRight}`;
+        setRatesLeft(responseRatesLeftLabel.data[keyLeftLabel]);
+
+        const responseRatesRightLabel = await axios.get(
+          `https://economia.awesomeapi.com.br/json/last/${itemSelectRight}-${itemSelectLeft}?token=${
+            import.meta.env.VITE_SECRET_AWESOME_KEY_API
+          }`
+        );
+
+        const keyRightLabel = `${itemSelectRight}${itemSelectLeft}`;
+        setRatesRight(responseRatesRightLabel.data[keyRightLabel]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (itemSelectLeft && itemSelectRight) {
+      fetchData();
+    }
+  }, [itemSelectLeft, itemSelectRight]);
 
   return (
     <Main>
@@ -31,8 +80,8 @@ export function Dashboard() {
               <Card>
                 <ContentCard>
                   <div>
-                    <SelectCoins />
-                    <MoneyBox>1.0000</MoneyBox>
+                    <SelectCoins setItemSelect={setItemSelectLeft} />
+                    <MoneyBox>{ratesLeft ? ratesLeft.low : 0}</MoneyBox>
                   </div>
                   <div>
                     <ArrowsRightLeft>
@@ -40,8 +89,8 @@ export function Dashboard() {
                     </ArrowsRightLeft>
                   </div>
                   <div>
-                    <MoneyBox>1.0000</MoneyBox>
-                    <SelectCoins />
+                    <MoneyBox>{ratesRight ? ratesRight?.low : 0}</MoneyBox>
+                    <SelectCoins setItemSelect={setItemSelectRight} />
                   </div>
                 </ContentCard>
               </Card>

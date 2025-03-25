@@ -12,8 +12,13 @@ export type CountriesResponse = {
   symbols: Record<string, string>;
 };
 
-export function SelectCoins() {
+interface SelectCoinsProps {
+  setItemSelect: (item: string) => void;
+}
+
+export function SelectCoins({ setItemSelect }: SelectCoinsProps) {
   const [countries, setCountries] = useState<CountriesResponse | null>(null);
+  const [selectedCoin, setSelectedCoin] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +45,13 @@ export function SelectCoins() {
   const itemsSelect = ItemSelect(itemsArray);
 
   return (
-    <Select.Root>
+    <Select.Root
+      value={selectedCoin}
+      onValueChange={(value) => {
+        setSelectedCoin(value);
+        setItemSelect(value);
+      }}
+    >
       <Select.Trigger
         className="rounded-sm bg-red-400 flex items-center justify-center gap-1 w-40 h-12 shadow-md font-bold text-base text-white"
         aria-label="Coins"
@@ -65,9 +76,9 @@ export function SelectCoins() {
                 <Select.Item
                   key={item.key}
                   value={item.key}
-                  className="p-2 cursor-pointer text-white hover:bg-red-800 hover:border-black shadow-2xs"
+                  className="p-2 cursor-pointer text-white hover:bg-red-800 hover:border-black shadow-sm"
                 >
-                  <div className=" flex justify-between items-center gap-2">
+                  <div className="flex justify-between items-center gap-2">
                     <Select.ItemText>{item.value}</Select.ItemText>
                     <Select.ItemIndicator>
                       <CheckIcon className="text-zinc-900" />
