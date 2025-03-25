@@ -45,6 +45,10 @@ export function DashProvider({ children }: DashProviderProps) {
   }, [fav]);
 
   function addSection() {
+    if (section.length + 1 > 3) {
+      return;
+    }
+
     setSection([...section, { id: Number(new Date()) }]);
   }
 
