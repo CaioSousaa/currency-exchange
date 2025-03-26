@@ -53,7 +53,7 @@ export function SelectCoins({ setItemSelect }: SelectCoinsProps) {
       }}
     >
       <Select.Trigger
-        className="rounded-sm bg-red-400 flex items-center justify-center gap-1 w-40 h-12 shadow-md font-bold text-base text-white"
+        className="rounded-sm bg-red-400 flex items-center justify-center gap-1 w-48 h-[95px] shadow-md font-bold text-base text-white"
         aria-label="Coins"
       >
         <Select.Value placeholder="Selecione a moeda" />

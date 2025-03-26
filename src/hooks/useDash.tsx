@@ -10,28 +10,33 @@ interface DashProviderProps {
   children: ReactNode;
 }
 
-interface SectionItem {
+interface SectionItemProps {
   id: number;
+}
+interface FavProps {
+  id: string;
+  key: string;
 }
 
 interface DashProviderData {
-  section: SectionItem[];
-  fav: SectionItem[];
+  section: SectionItemProps[];
+  fav: FavProps[];
+  key: string;
 
-  addSection: () => void;
-  setSection: (section: SectionItem[]) => void;
+  setKey: (key: string) => void;
+  setSection: (section: SectionItemProps[]) => void;
 
-  removeSection: (sectionId: number) => void;
-  addNewItemFav: (itemId: number) => void;
-  removeItemFav: (itemId: number) => void;
+  addNewItemFav: (key: string) => void;
+  // removeItemFav: (itemId: number) => void;
 }
 
 const DashContext = createContext<DashProviderData>({} as DashProviderData);
 
 export function DashProvider({ children }: DashProviderProps) {
-  const [fav, setFav] = useState<SectionItem[]>([]);
+  const [fav, setFav] = useState<FavProps[]>([]);
+  const [key, setKey] = useState("");
 
-  const [section, setSection] = useState<SectionItem[]>(() => {
+  const [section, setSection] = useState<SectionItemProps[]>(() => {
     const savedSections = localStorage.getItem("sections");
     return savedSections ? JSON.parse(savedSections) : [{ id: 1 }];
   });
@@ -44,50 +49,33 @@ export function DashProvider({ children }: DashProviderProps) {
     localStorage.setItem("favs", JSON.stringify(fav));
   }, [fav]);
 
-  function addSection() {
-    if (section.length + 1 > 3) {
-      return;
-    }
+  function addNewItemFav(key: string) {
+    const keyAlreadyExists = fav.find((f) => f.key === key);
 
-    setSection([...section, { id: Number(new Date()) }]);
+    if (keyAlreadyExists) return "Esta conversão já foi salva!";
+
+    const newFav: FavProps = {
+      id: crypto.randomUUID(),
+      key,
+    };
+
+    setFav([...fav, newFav]);
   }
 
-  function addNewItemFav(itemId: number) {
-    const itemExists = section.find((e) => e.id === itemId);
-
-    if (!itemExists) {
-      return;
-    }
-
-    const itemAlreadyFav = fav.find((e) => e.id === itemId);
-
-    if (itemAlreadyFav) {
-      return;
-    }
-
-    setFav([...fav, itemExists]);
-  }
-
-  function removeSection(sectionId: number) {
-    if (section.length > 1) {
-      setSection((prev) => prev.filter((section) => section.id !== sectionId));
-    }
-  }
-
-  function removeItemFav(itemId: number) {
-    setFav((prev) => prev.filter((f) => f.id !== itemId));
-  }
+  // function removeItemFav(itemId: number) {
+  //   setFav((prev) => prev.filter((f) => f.id !== itemId));
+  // }
 
   return (
     <DashContext.Provider
       value={{
         section,
         setSection,
-        addSection,
-        removeSection,
         fav,
         addNewItemFav,
-        removeItemFav,
+        key,
+        setKey,
+        //  removeItemFav,
       }}
     >
       {children}
