@@ -32,11 +32,12 @@ interface ExchangeRate {
 }
 
 export function Dashboard() {
-  const { section } = useDash();
+  const { section, key, setKey } = useDash();
   const [itemSelectLeft, setItemSelectLeft] = useState("");
   const [itemSelectRight, setItemSelectRight] = useState("");
   const [ratesLeft, setRatesLeft] = useState<ExchangeRate | null>(null);
   const [ratesRight, setRatesRight] = useState<ExchangeRate | null>(null);
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,7 +67,9 @@ export function Dashboard() {
     if (itemSelectLeft && itemSelectRight) {
       fetchData();
     }
-  }, [itemSelectLeft, itemSelectRight]);
+  }, [itemSelectLeft, itemSelectRight, setKey]);
+
+  setKey(`${itemSelectLeft}${itemSelectRight}`);
 
   return (
     <Main>
@@ -81,7 +84,12 @@ export function Dashboard() {
                 <ContentCard>
                   <div>
                     <SelectCoins setItemSelect={setItemSelectLeft} />
-                    <MoneyBox>{ratesLeft ? ratesLeft.low : 0}</MoneyBox>
+                    <MoneyBox>
+                      <input
+                        placeholder="0.000"
+                        onChange={(e) => setValue(e.target.value)}
+                      />
+                    </MoneyBox>
                   </div>
                   <div>
                     <ArrowsRightLeft>
@@ -89,12 +97,18 @@ export function Dashboard() {
                     </ArrowsRightLeft>
                   </div>
                   <div>
-                    <MoneyBox>{ratesRight ? ratesRight?.low : 0}</MoneyBox>
+                    <MoneyBox>
+                      {ratesRight
+                        ? Number(
+                            Number(value) / Number(ratesRight?.low)
+                          ).toFixed(3)
+                        : "0.000"}
+                    </MoneyBox>
                     <SelectCoins setItemSelect={setItemSelectRight} />
                   </div>
                 </ContentCard>
               </Card>
-              <IconsItem id={item.id} />
+              <IconsItem itemKey={key} />
             </Section>
           ))}
         </Content>

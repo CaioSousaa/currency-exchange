@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { motion } from "framer-motion";
 import Tippy from "@tippyjs/react";
+import { motion } from "framer-motion";
+import styled from "styled-components";
 
 export const Main = styled.div``;
 export const ContentScreen = styled.div`
@@ -24,30 +24,43 @@ export const Content = styled.div`
 
   h1 {
     color: #9fb0ca;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
     font-size: xx-large;
   }
 `;
 
 export const Card = styled.div`
   width: 900px;
-  height: 100px;
+  height: 170px;
   background: #171b27;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   display: flex;
   align-items: center;
-  margin-left: 9rem;
 `;
 
 export const MoneyBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 160px;
-  height: 48px;
+  width: 192px;
+  height: 95px;
   background: #ede9e5;
   border-radius: 3px;
+  font-size: 1.5rem;
+
+  input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+  }
+
+  input::placeholder {
+    color: black;
+  }
 `;
 
 export const ContentCard = styled.div`
@@ -91,19 +104,6 @@ export const Icons = styled.div`
   }
 `;
 
-export const TrashAnimation = styled(motion.div)`
-  color: #ff5d82;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #ffa1b5;
-  }
-`;
-
-export const TrashAnimationInative = styled(motion.div)`
-  color: #616273;
-`;
-
 export const SaveAnimation = styled(motion.div)`
   padding-left: 0.6rem;
   color: #9fb0ca;
@@ -115,17 +115,23 @@ export const SaveAnimation = styled(motion.div)`
   }
 `;
 
-export const AddAnimation = styled(motion.div)`
-  color: #159a32;
-  transition: color 0.2s;
-
-  &:hover {
-    color: #5ac865;
-  }
-`;
-
 export const TippyStylized = styled(Tippy)`
   background: #ede9e5;
+  display: inline-block;
+  white-space: normal;
+  width: 100%;
+  height: 35px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+  color: #0f0f10;
+  margin: 0.5rem;
+`;
+
+export const TippyStylizedSaving = styled(Tippy)`
+  background: #ffd700;
   display: inline-block;
   white-space: normal;
   width: 100%;
