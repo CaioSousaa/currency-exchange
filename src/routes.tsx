@@ -2,14 +2,14 @@ import { Route, Routes } from "react-router-dom";
 
 import { SignUp } from "./pages/SignUp";
 import { Login } from "./pages/Login";
-import { Dashboard } from "./pages/Dashboard";
+import { Home } from "./pages/Home";
 
 export function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/home" element={<Home />} />
     </Routes>
   );
 }

@@ -31,7 +31,7 @@ export interface ExchangeRate {
   varBid: string;
 }
 
-export function Dashboard() {
+export function Home() {
   const { section, key, setKey } = useDash();
   const [itemSelectLeft, setItemSelectLeft] = useState("");
   const [itemSelectRight, setItemSelectRight] = useState("");
