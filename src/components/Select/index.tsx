@@ -63,7 +63,7 @@ export function SelectCoins({ setItemSelect }: SelectCoinsProps) {
       </Select.Trigger>
       <Select.Portal>
         <Select.Content
-          className="bg-red-400 rounded-md shadow-md flex items-center justify-center gap-1 w-40"
+          className="bg-red-400 rounded-md shadow-md flex items-center justify-center gap-1 w-48"
           position="popper"
           sideOffset={5}
         >

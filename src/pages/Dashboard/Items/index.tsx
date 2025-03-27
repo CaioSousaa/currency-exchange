@@ -68,6 +68,7 @@ export function IconsItem({ itemKey, initialFav = false }: SectionProps) {
           theme="custom"
           animation="fade"
           placement="bottom"
+          arrow={true}
           offset={[0, 20]}
           duration={0}
         >
