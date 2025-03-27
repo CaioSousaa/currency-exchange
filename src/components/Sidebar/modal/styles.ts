@@ -24,16 +24,32 @@ export const ModalTitle = styled(Modal.Title)`
   padding-left: 8rem;
 `;
 
+export const NotItems = styled(Modal.Body)`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+`;
+
 export const Table = styled.table`
   width: 100%;
 
   th {
-    font-size: larger;
+    text-align: left;
+    padding-left: 1rem;
     padding-bottom: 1rem;
+    width: calc(100% / 5);
   }
 
   td {
-    width: 1rem;
+    text-align: left;
+    padding-left: 1rem;
+    width: calc(100% / 5);
+
+    &:first-child {
+      padding-top: 0.8rem;
+    }
   }
 
   svg {
@@ -53,7 +69,7 @@ export const TrashAnimation = styled(motion.div)`
 `;
 
 export const TippyStylized = styled(Tippy)`
-  background: #ede9e5;
+  background: white;
   display: inline-block;
   white-space: normal;
   width: 100%;
@@ -67,10 +83,10 @@ export const TippyStylized = styled(Tippy)`
   margin: 0.5rem;
 
   &[data-placement] > .tippy-arrow {
-    color: #ede9e5;
+    color: white;
   }
 
   &[data-placement] {
-    transform: translateX(-30px);
+    transform: translateX(-70px);
   }
 `;

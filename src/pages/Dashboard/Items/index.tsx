@@ -8,10 +8,12 @@ import {
   TippyStylized,
   TippyStylizedSaving,
 } from "../styles";
+import { ExchangeRate } from "..";
 
 interface SectionProps {
   itemKey: string;
   initialFav?: boolean;
+  rates: ExchangeRate;
 }
 
 const Spinner = () => (
@@ -28,14 +30,24 @@ const Spinner = () => (
   />
 );
 
-export function IconsItem({ itemKey, initialFav = false }: SectionProps) {
+export function IconsItem({
+  itemKey,
+  rates,
+  initialFav = false,
+}: SectionProps) {
   const [isFav, setIsFav] = useState(initialFav);
   const [isSaving, setIsSaving] = useState(false);
   const { addNewItemFav } = useDash();
 
   const handleSave = async () => {
     setIsSaving(true);
-    await addNewItemFav(itemKey);
+    await addNewItemFav(
+      itemKey,
+      rates.code,
+      rates.codein,
+      Number(rates.low),
+      Number(rates.high)
+    );
     setTimeout(() => {
       setIsFav(true);
       setIsSaving(false);

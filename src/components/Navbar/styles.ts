@@ -60,6 +60,7 @@ export const Profile = styled.div`
   align-items: center;
 
   div {
+    margin-top: 1.1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;

@@ -17,7 +17,7 @@ import {
   Section,
 } from "./styles";
 
-interface ExchangeRate {
+export interface ExchangeRate {
   ask: string;
   bid: string;
   code: string;
@@ -109,7 +109,7 @@ export function Dashboard() {
                   </div>
                 </ContentCard>
               </Card>
-              <IconsItem itemKey={key} />
+              <IconsItem itemKey={key} rates={ratesLeft!} />
             </Section>
           ))}
         </Content>
