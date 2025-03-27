@@ -32,10 +32,16 @@ export const Section = styled.section`
     align-items: center;
     gap: 0.3rem;
 
-    a {
+    a,
+    p {
       color: #c9c9ca;
       font-size: medium;
       text-decoration: none;
+    }
+
+    p {
+      cursor: pointer;
+      margin: 0;
     }
 
     svg {
@@ -47,7 +53,8 @@ export const Section = styled.section`
     transition: color 0.2s;
 
     &:hover {
-      a {
+      a,
+      p {
         color: #d4d4d5;
       }
 
