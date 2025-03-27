@@ -128,6 +128,10 @@ export const TippyStylized = styled(Tippy)`
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
   color: #0f0f10;
   margin: 0.5rem;
+
+  &[data-placement] > .tippy-arrow {
+    color: #ede9e5;
+  }
 `;
 
 export const TippyStylizedSaving = styled(Tippy)`

@@ -65,6 +65,7 @@ export function Dashboard() {
     };
 
     if (itemSelectLeft && itemSelectRight) {
+      setValue("1");
       fetchData();
     }
   }, [itemSelectLeft, itemSelectRight, setKey]);
@@ -86,7 +87,7 @@ export function Dashboard() {
                     <SelectCoins setItemSelect={setItemSelectLeft} />
                     <MoneyBox>
                       <input
-                        placeholder="0.000"
+                        placeholder={value === "" ? "0.000" : "1"}
                         onChange={(e) => setValue(e.target.value)}
                       />
                     </MoneyBox>
