@@ -10,6 +10,7 @@ export function Dashboard() {
       <ContentScreen>
         <Sidebar pageUrl="/dashboard" />
         <Content>
+          <h1>Desvalorização do Real nos últimos 5 meses</h1>
           <Chart />
         </Content>
       </ContentScreen>
