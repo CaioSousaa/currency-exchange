@@ -66,7 +66,7 @@ No momento em que fiz essa aplicação, estou utilizando:
 
 **Instalação:**
 
-- Primeiramente, você deve usar o comando: `https://github.com/CaioSousaa/currency-exchange.git` para clonar o projeto na sua máquina.
+- Primeiramente, você deve usar o comando: `git clone https://github.com/CaioSousaa/currency-exchange.git` para clonar o projeto na sua máquina.
 - Após isso, rode o comando `npm install` para instalar as dependências e gerar a pasta node_modules
 
 ### TELAS
