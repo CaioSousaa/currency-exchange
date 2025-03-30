@@ -76,7 +76,7 @@ export function Home() {
     <Main>
       <NavBar />
       <ContentScreen>
-        <Sidebar />
+        <Sidebar pageUrl="/home" />
         <Content>
           <h1>Conversor de Moedas</h1>
           {section.map((item) => (

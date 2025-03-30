@@ -1,12 +1,13 @@
-import { Select } from "radix-ui";
 import {
   CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@radix-ui/react-icons";
+import { Select } from "radix-ui";
 import { useEffect, useState } from "react";
-import { ItemSelect } from "../../utils/functions/ItemsSelect";
-import api from "../../services/api";
+import "../styles/index.css";
+import api from "../services/api";
+import { ItemSelect } from "../utils/functions/ItemsSelect";
 
 export type CountriesResponse = {
   symbols: Record<string, string>;
