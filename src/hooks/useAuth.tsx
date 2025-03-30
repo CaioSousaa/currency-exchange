@@ -83,7 +83,7 @@ export function AuthProvider({ children }: LoginProviderProps) {
       localStorage.setItem("userEmail", data.email);
       setUserEmail(data.email);
 
-      navigate("/dashboard");
+      navigate("/home");
     } catch (err) {
       console.error("Erro ao fazer login:", err);
       setError("Erro ao autenticar. Tente novamente.");

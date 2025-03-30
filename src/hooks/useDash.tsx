@@ -16,6 +16,10 @@ interface SectionItemProps {
 interface FavProps {
   id: string;
   key: string;
+  baseKey: string;
+  quotedKey: string;
+  low: number;
+  high: number;
 }
 
 interface DashProviderData {
@@ -26,8 +30,14 @@ interface DashProviderData {
   setKey: (key: string) => void;
   setSection: (section: SectionItemProps[]) => void;
 
-  addNewItemFav: (key: string) => void;
-  // removeItemFav: (itemId: number) => void;
+  addNewItemFav: (
+    key: string,
+    baseKey: string,
+    quotedKey: string,
+    low: number,
+    high: number
+  ) => void;
+  removeItemFav: (itemId: string) => void;
 }
 
 const DashContext = createContext<DashProviderData>({} as DashProviderData);
@@ -49,7 +59,13 @@ export function DashProvider({ children }: DashProviderProps) {
     localStorage.setItem("favs", JSON.stringify(fav));
   }, [fav]);
 
-  function addNewItemFav(key: string) {
+  function addNewItemFav(
+    key: string,
+    baseKey: string,
+    quotedKey: string,
+    low: number,
+    high: number
+  ) {
     const keyAlreadyExists = fav.find((f) => f.key === key);
 
     if (keyAlreadyExists) return "Esta conversão já foi salva!";
@@ -57,14 +73,18 @@ export function DashProvider({ children }: DashProviderProps) {
     const newFav: FavProps = {
       id: crypto.randomUUID(),
       key,
+      baseKey,
+      quotedKey,
+      low,
+      high,
     };
 
     setFav([...fav, newFav]);
   }
 
-  // function removeItemFav(itemId: number) {
-  //   setFav((prev) => prev.filter((f) => f.id !== itemId));
-  // }
+  function removeItemFav(itemId: string) {
+    setFav((prev) => prev.filter((f) => f.id !== itemId));
+  }
 
   return (
     <DashContext.Provider
@@ -75,7 +95,7 @@ export function DashProvider({ children }: DashProviderProps) {
         addNewItemFav,
         key,
         setKey,
-        //  removeItemFav,
+        removeItemFav,
       }}
     >
       {children}
